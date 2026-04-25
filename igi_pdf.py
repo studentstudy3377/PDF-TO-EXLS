@@ -172,7 +172,7 @@ def run_igi_pdf():
     if uploaded_files:
         all_data = []
         for uploaded_file in uploaded_files:
-            st.write(f"Processing {uploaded_file.name} ...")
+            # st.write(f"Processing {uploaded_file.name} ...")
             text = extract_text_from_pdf(uploaded_file)
             data = extract_diamond_data(text)
             all_data.append(data)

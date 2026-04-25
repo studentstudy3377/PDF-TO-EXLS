@@ -1,0 +1,14 @@
+streamlit==1.38.0  # Ensure compatible version of Streamlit
+PyPDF2==2.12.1     # PDF manipulation
+pandas==2.2.2      # Data manipulation library
+openpyxl==3.1.5    # Excel support
+xlrd==2.0.1        # Read older Excel files
+PyMuPDF==1.24.10   # PDF parsing and manipulation
+easyocr>=1.6.2     # Optical character recognition
+opencv-python-headless==4.5.4.60  # For computer vision tasks
+numpy==1.26.1      # Array and matrix operations
+XlsxWriter==3.2.0  # Writing Excel files
+xlwt==1.3.0        # Writing older Excel files
+Pillow>=8.4        # For image manipulation
+camelot-py         # Table extraction from PDFs
+pdfplumber          # PDF extraction library

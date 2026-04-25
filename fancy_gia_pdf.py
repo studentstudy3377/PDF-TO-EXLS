@@ -260,7 +260,7 @@ def process_pdf_files(uploaded_files):
     reader = easyocr.Reader(['en'], gpu=False)
 
     for idx, uploaded_file in enumerate(uploaded_files):
-        st.write(f"Processing: {uploaded_file.name}")
+        # st.write(f"Processing: {uploaded_file.name}")
         pdf_path = os.path.join(output_dir, uploaded_file.name)
         with open(pdf_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
@@ -331,27 +331,28 @@ def fancy_gia_pdf():
     st.sidebar.header("Upload PDF Files")
 
     uploaded_files = st.sidebar.file_uploader("Choose PDF files", accept_multiple_files=True, type=["pdf"])
+    
+    with st.spinner("Processing  ..."):
+        if uploaded_files:
+            st.write(f"Processing {len(uploaded_files)} PDF")
 
-    if uploaded_files:
-        st.write(f"Processing {len(uploaded_files)} PDF(s)...")
+            try:
+                result_df = process_pdf_files(uploaded_files)
 
-        try:
-            result_df = process_pdf_files(uploaded_files)
+                st.write("Processed Data:")
+                st.dataframe(result_df)
 
-            st.write("Processed Data:")
-            st.dataframe(result_df)
-
-            excel_data = get_excel_data(result_df)
-            st.download_button(
-                label="Download Excel",
-                data=excel_data,
-                file_name="GIA_Fancy.xlsx",
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            )
-        
-        except Exception as e:
-            st.error(f"An error occurred while processing the PDFs: {str(e)}")
-            print(f"Error: {str(e)}")
+                excel_data = get_excel_data(result_df)
+                st.download_button(
+                    label="Download Excel",
+                    data=excel_data,
+                    file_name="GIA_Fancy.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
+            
+            except Exception as e:
+                st.error(f"An error occurred while processing the PDFs: {str(e)}")
+                print(f"Error: {str(e)}")
 
 if __name__ == "__main__":
     fancy_gia_pdf()
